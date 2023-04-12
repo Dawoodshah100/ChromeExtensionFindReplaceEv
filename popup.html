@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: Arial, sans-serif;
+        width: 300px;
+        padding: 20px;
+        background-color: #f6f6f6;
+      }
+      h3 {
+        margin-top: 0;
+        margin-bottom: 20px;
+        font-size: 24px;
+        color: #444;
+        text-align: center;
+      }
+      label {
+        font-size: 14px;
+        color: #444;
+        display: block;
+      }
+      input {
+        width: 100%;
+        padding: 8px 12px;
+        margin: 5px 0 15px;
+        font-size: 14px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+      .checkbox-container {
+        display: flex;
+        /* align-items: center;
+        margin-bottom: 15px; */
+      }
+      .checkbox-container input[type='checkbox'] {
+        margin-right: 5px;
+        width: auto;
+      }
+      .checkbox-container  label {
+        padding-top: 3px;
+      }
+      button {
+        width: 100%;
+        padding: 10px;
+        background-color: #4caf50;
+        color: white;
+        font-size: 16px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #45a049;
+      }
+    </style>
+  </head>
+  <body>
+    <h3>Find and Replace Everything</h3>
+    <label for="findText">Find:</label>
+    <input type="text" id="findText" />
+    <label for="replaceText">Replace:</label>
+    <input type="text" id="replaceText" />
+    <div class="checkbox-container">
+      <input type="checkbox" id="ignoreCase" checked/>
+      <label for="ignoreCase">Ignore case</label>
+    </div>
+    <button id="replaceBtn">Replace</button>
+    <script src="popup.js"></script>
+  </body>
+</html>
