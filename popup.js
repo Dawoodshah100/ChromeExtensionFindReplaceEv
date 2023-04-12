@@ -7,6 +7,7 @@ chrome.runtime.sendMessage({ action: "getSelectedText" }, (response) => {
 const findText = document.getElementById("findText");
 const replaceText = document.getElementById("replaceText");
 const ignoreCase = document.getElementById("ignoreCase");
+const regexCheckbox = document.getElementById("regex");
 const replaceBtn = document.getElementById("replaceBtn");
 
 replaceBtn.addEventListener("click", performFindAndReplace);
@@ -25,6 +26,7 @@ replaceText.addEventListener("keydown", (event) => {
   }
 });
 
+
 async function performFindAndReplace() {
   const find = findText.value;
   const replace = replaceText.value;
@@ -39,30 +41,29 @@ async function performFindAndReplace() {
     await chrome.scripting.executeScript({
       target: { tabId: tab.id },
       func: findAndReplace,
-      args: [find, replace, caseInsensitive],
+      args: [find, replace, caseInsensitive, regexCheckbox.checked],
     });
   } catch (error) {
     console.error(error);
   }
 }
 
-function findAndReplace(findText, replaceText, ignoreCase) {
-  const walker = document.createTreeWalker(
-    document.body,
-    NodeFilter.SHOW_TEXT,
-    null,
-    false
-  );
+function findAndReplace(findText, replaceText, ignoreCase, useRegex) {
+  
 
-  const flags = ignoreCase ? "gi" : "g";
-  const regex = new RegExp(findText, flags);
-  // let node;
-
-  // while ((node = walker.nextNode())) {
-  //   if (regex.test(node.textContent)) {
-  //     node.textContent = node.textContent.replace(regex, replaceText);
-  //   }
-  // }
+  let regex;
+  if (useRegex) {
+    const flags = ignoreCase ? "gi" : "g";
+    try {
+      regex = new RegExp(findText, flags);
+    } catch (error) {
+      console.error("Invalid regular expression:", error);
+      return;
+    }
+  } else {
+    const flags = ignoreCase ? "gi" : "g";
+    regex = new RegExp(findText.replace(/[.*+\-?^${}()|[\]\\]/g, "\\$&"), flags);
+  }
 
   const sourceHTML = document.documentElement.outerHTML;
 
