@@ -3,7 +3,7 @@
     "name": "Find and Replace",
     "version": "1.0",
     "description": "Finds and replaces text in the source HTML of a tab",
-    "permissions": ["scripting", "tabs", "activeTab"],
+    "permissions": ["scripting", "tabs", "activeTab", "contextMenus", "storage"],
     "action": {
       "default_popup": "popup.html"
     },

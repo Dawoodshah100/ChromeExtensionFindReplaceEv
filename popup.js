@@ -1,3 +1,9 @@
+chrome.runtime.sendMessage({ action: "getSelectedText" }, (response) => {
+  const findInput = document.getElementById("findText");
+  if (findInput && response.selectedText) {
+    findInput.value = response.selectedText;
+  }
+});
 const findText = document.getElementById("findText");
 const replaceText = document.getElementById("replaceText");
 const ignoreCase = document.getElementById("ignoreCase");
